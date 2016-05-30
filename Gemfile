@@ -22,6 +22,7 @@ group :development, :test do
   gem 'byebug' # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'rspec-rails', '~> 3.4'
   gem 'rspec-its', '~> 1.2'
+  gem 'factory_girl', '~> 4.7'
 end
 
 group :development do

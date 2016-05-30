@@ -17,4 +17,4 @@
 /tmp
 
 #ignore redis database dump file
-*.rbd
+*.rdb

@@ -2,16 +2,11 @@ require 'redis'
 
 module CpuMonitorRepository
 
+  CPU_INFO_KEY = 'crossover:cpuinfo'
+
   def CpuMonitorRepository.save(info)
-    set(info.id, info.to_json)
-  end
-
-  def CpuMonitorRepository.set(key, value)
-    repo.set key, value
-  end
-
-  def CpuMonitorRepository.get(key)
-    repo.get key
+    repo.hset(CPU_INFO_KEY, info.id, info.to_json)
+    true
   end
 
   def CpuMonitorRepository.repo

@@ -9,14 +9,13 @@ describe CpuInfo do
   end
 
   context 'with valid fields' do
-    subject(:info) { CpuInfo.new(fields) }
-    let(:fields) { {id: '123', hostname: 'my_host', report: { cpu: 12.5, disk: 19.4, process: [%w{/proc1 2.3}, %w{/proc2 3.1} ] } }  }
+    subject(:info) { build(:cpu_info) }
 
-    its(:id) { is_expected.to be_eql '123' }
-    its(:hostname) { is_expected.to be_eql 'my_host' }
-    its(:cpu) { is_expected.to be_eql 12.5 }
-    its(:disk) { is_expected.to be_eql 19.4 }
-    its(:process) { is_expected.to be_eql [%w{/proc1 2.3}, %w{/proc2 3.1} ] }
+    its(:id) { is_expected.to eq('123') }
+    its(:hostname) { is_expected.to eq('my_host') }
+    its(:cpu) { is_expected.to eq(12.5) }
+    its(:disk) { is_expected.to eq(19.4) }
+    its(:process) { is_expected.to eq([%w{/proc1 2.3}, %w{/proc2 3.1}]) }
     its(:created_at) { is_expected.not_to be_nil }
 
     it 'should save' do
