@@ -1,6 +1,6 @@
 class CpuMonitorController < ApplicationController
 
-  skip_before_action :verify_authenticity_token, only: [:update]
+  protect_from_forgery with: :null_session, if: Proc.new { |c| puts c.request.inspect; c.request.format == 'application/json' }
 
   def index
   end
