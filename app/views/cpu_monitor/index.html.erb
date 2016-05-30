@@ -1,18 +1,45 @@
 <h1>Wellcome to CPU Monitor!</h1>
 
 <div>
+  <%= form_tag('/cpu_config') do %>
+      <%= label_tag 'Max CPU usage before send reboot command (zero to turnoff):' %>
+      <%= text_field_tag 'max_cpu_usage_without_action', @max_cpu_action %>
+      <%= submit_tag 'Save' %>
+  <% end %>
+</div>
+
+<div>
+  <p>Sort by:
+    <%= link_to 'Id', controller: 'cpu_monitor', sort: 'date' %>
+    <%= link_to 'Created At', controller: 'cpu_monitor', sort: 'date' %>
+    <%= link_to 'CPU Usage', controller: 'cpu_monitor', sort: 'cpu' %>
+    <%= link_to 'Disk Usage', controller: 'cpu_monitor', sort: 'disk' %>
+  </p>
+</div>
+
+<div>
   <table id="cpu_info_table">
     <thead>
       <tr>
-        <th>Class</th>
-        <th>Inspect</th>
+        <th>Id</th>
+        <th>Hostname</th>
+        <th>Created at</th>
+        <th>Action</th>
+        <th>CPU Usage (%)</th>
+        <th>Disk Usage (%)</th>
+        <th>Process running</th>
       </tr>
     </thead>
     <tbody>
       <% @infos.each do |i| %>
         <tr>
-          <td><%= i.class %></td>
-          <td><%= i.inspect %></td>
+          <td><%= i.id %></td>
+          <td><%= i.hostname %></td>
+          <td><%= i.created_at.strftime('%m/%d/%Y - %I:%M%p') %></td>
+          <td><%= i.action %></td>
+          <td><%= i.cpu %></td>
+          <td><%= i.disk %></td>
+          <td><%= i.process.join(' | ') %></td>
         </tr>
       <% end %>
     </tbody>

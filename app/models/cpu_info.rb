@@ -1,8 +1,6 @@
 require 'cpu_monitor_repository'
 class CpuInfo
 
-  MAX_CPU_USAGE_BEFORE_REBOOT = 90
-
   attr_reader :id, :hostname, :created_at, :cpu, :disk, :process
 
   def self.create(values)
@@ -27,7 +25,9 @@ class CpuInfo
   end
 
   def action
-    cpu > MAX_CPU_USAGE_BEFORE_REBOOT ? :reboot : :none
+    max_cpu_usage = repo.cpu_action_config
+    return :none unless max_cpu_usage > 0
+    cpu > max_cpu_usage ? :reboot : :none
   end
 
   def save
