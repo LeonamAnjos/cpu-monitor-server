@@ -18,7 +18,7 @@
 </div>
 
 <div>
-  <table id="cpu_info_table">
+  <table id="cpu_info_table" border="1">
     <thead>
       <tr>
         <th>Id</th>
@@ -39,7 +39,11 @@
           <td><%= i.action %></td>
           <td><%= i.cpu %></td>
           <td><%= i.disk %></td>
-          <td><%= i.process.join(' | ') %></td>
+          <td>
+            <% i.process.each do |p| %>
+              <div><%= p.join(' - ') %></div>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>
