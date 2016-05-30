@@ -1,1 +1,20 @@
 <h1>Wellcome to CPU Monitor!</h1>
+
+<div>
+  <table id="cpu_info_table">
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>Inspect</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @infos.each do |i| %>
+        <tr>
+          <td><%= i.class %></td>
+          <td><%= i.inspect %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

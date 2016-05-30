@@ -9,15 +9,20 @@ class CpuInfo
     CpuInfo.new(values).save
   end
 
+  def self.all
+    repo.all
+  end
+
   def initialize(values = {})
     @id = values[:id]
     @hostname = values[:hostname]
-    @created_at = DateTime.now
 
-    unless values[:report].nil?
-      @cpu = values[:report][:cpu]
-      @disk = values[:report][:disk]
-      @process = values[:report][:process]
+    initialize_created_at(values[:created_at])
+
+    if values[:report].nil?
+      initialize_report_info(values)
+    else
+      initialize_report_info(values[:report])
     end
   end
 
@@ -43,9 +48,28 @@ class CpuInfo
     raise "CPU info can't have these fields blank: #{cant_be_nil.inspect}" unless cant_be_nil.empty?
   end
 
-  def repo
-    @@repo ||= CpuMonitorRepository
+  def initialize_report_info(values)
+    @cpu = values[:cpu]
+    @disk = values[:disk]
+    @process = values[:process]
   end
 
+  def initialize_created_at(date)
+    if date.nil?
+      @created_at =  Time.now
+    elsif date.is_a?(Time)
+      @created_at = date
+    else
+      @created_at = Time.parse(date)
+    end
+  end
+
+  def repo
+    CpuInfo.repo
+  end
+
+  def self.repo
+    @@repo ||= CpuMonitorRepository
+  end
 
 end
