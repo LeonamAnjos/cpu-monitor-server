@@ -21,7 +21,7 @@ describe CpuInfo do
 
     it 'should save' do
       expect(CpuMonitorRepository).to receive(:save).with(info).and_return true
-      expect(info.save).to be true
+      expect(info.save).to be info
     end
   end
 end

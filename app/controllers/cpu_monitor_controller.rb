@@ -7,11 +7,10 @@ class CpuMonitorController < ApplicationController
 
   def update
     begin
-      CpuInfo.create_or_update(params)
-      # get action for params[:id]
-      action = CpuInfo.action_for(params)
+      info = CpuInfo.create(params)
+
       # render code 0
-      render json: { code: 0, message: 'Successfully updated!', action: action }
+      render json: { code: 0, message: 'Successfully updated!', action: info.action }
     rescue Exception => e
       render json: { code: 1, message: e.message }
     end

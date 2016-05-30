@@ -27,7 +27,7 @@ class CpuInfo
 
   def save
     validate
-    repo.save(self)
+    repo.save(self) ? self : nil
   end
 
   private
